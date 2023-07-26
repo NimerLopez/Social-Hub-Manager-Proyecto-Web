@@ -48,12 +48,12 @@ class LoginRequest extends FormRequest
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
 
-            throw ValidationException::withMessages([
+            throw ValidationException::withMessages([// returna error error
                 'email' => trans('auth.failed'),
             ]);
         }
 
-        RateLimiter::clear($this->throttleKey());
+        RateLimiter::clear($this->throttleKey());//limpia el tiempo limite
     }
 
     /**
@@ -63,17 +63,17 @@ class LoginRequest extends FormRequest
      *
      * @throws \Illuminate\Validation\ValidationException
      */
-    public function ensureIsNotRateLimited()
+    public function ensureIsNotRateLimited()//valida los intentos fallidos 
     {
-        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {
-            return;
+        if (! RateLimiter::tooManyAttempts($this->throttleKey(), 5)) {//valida los intentos realizados
+            return;//returna que no hay tantos intentos
         }
 
-        event(new Lockout($this));
+        event(new Lockout($this));//ejecuta un evento que se an realizado muchos intentos
 
-        $seconds = RateLimiter::availableIn($this->throttleKey());
+        $seconds = RateLimiter::availableIn($this->throttleKey()); //tiempo restante en volver a loguearse
 
-        throw ValidationException::withMessages([
+        throw ValidationException::withMessages([ //returna el mensaje del tiempo restante
             'email' => trans('auth.throttle', [
                 'seconds' => $seconds,
                 'minutes' => ceil($seconds / 60),
@@ -88,6 +88,6 @@ class LoginRequest extends FormRequest
      */
     public function throttleKey()
     {
-        return Str::lower($this->input('email')).'|'.$this->ip();
+        return Str::lower($this->input('email')).'|'.$this->ip();//genera una clave con el email y la ip para validar los intentos fallidos
     }
 }
