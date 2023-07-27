@@ -19,7 +19,10 @@ class AuthenticatedSessionController extends Controller
     {
         return view('auth.login');
     }
-
+    public function aut2fac()
+    {
+        return view('auth.verificar-2fa');
+    }
     /**
      * Handle an incoming authentication request.
      *
@@ -29,10 +32,47 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request)
     {
         $request->authenticate();
-
         $request->session()->regenerate();
+        $user = $request->user();
+        
+        // Verificar si la autenticación de doble factor está habilitada para el usuario
+        if ($user->google2fa_enabled) {
+            
 
-        return redirect()->intended(RouteServiceProvider::HOME);
+
+            Auth::guard('web')->logout();//cierra sesion ya que no puede accerder
+            // Si 2FA está habilitado, redireccionar al usuario a la página de verificación 2FA.
+            return redirect()->route('2fact');
+        }
+        // Si 2FA no está habilitado, redireccionar al usuario a la página de inicio de la aplicación.
+        return redirect(RouteServiceProvider::HOME);
+    }
+    private function generateGoogle2FA(User $user)
+    {
+        // Obtener el proveedor de autenticación 2FA
+        $google2fa = app(Authenticator::class)->fromUser($user);
+
+        // Generar el código QR y la clave secreta para el usuario
+        $qrImage = $google2fa->getQRCodeInline(
+            config('app.name'),
+            $user->email,
+            $google2fa->getKeyUri($user->email, $user->google2fa_secret)
+        );
+
+        $secretKey = $google2fa->generateSecretKey();
+
+        // Aquí puedes guardar el código QR y la clave secreta en la base de datos si es necesario.
+        // Por ejemplo:
+        // $user->update([
+        //     'google2fa_qr' => $qrImage,
+        //     'google2fa_secret' => $secretKey,
+        // ]);
+
+        // También puedes pasar el código QR y la clave secreta a la vista usando variables de sesión si prefieres:
+        // $request->session()->put('qrImage', $qrImage);
+        // $request->session()->put('secretKey', $secretKey);
+
+        // Luego en la vista, puedes acceder a las variables de sesión para mostrar el código QR y la clave secreta.
     }
 
     /**

@@ -44,18 +44,22 @@ class LoginRequest extends FormRequest
     public function authenticate()
     {
         $this->ensureIsNotRateLimited();
-
+    
         if (! Auth::attempt($this->only('email', 'password'), $this->boolean('remember'))) {
             RateLimiter::hit($this->throttleKey());
-
-            throw ValidationException::withMessages([// returna error error
+    
+            throw ValidationException::withMessages([
                 'email' => trans('auth.failed'),
             ]);
         }
-
-        RateLimiter::clear($this->throttleKey());//limpia el tiempo limite
+    
+        RateLimiter::clear($this->throttleKey());
+    
+        // Obtener al usuario autenticado
+        $user = Auth::user();
+    
+        return $user; // Retorna el usuario autenticado
     }
-
     /**
      * Ensure the login request is not rate limited.
      *

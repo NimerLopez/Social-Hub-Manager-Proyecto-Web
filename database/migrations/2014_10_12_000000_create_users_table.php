@@ -25,7 +25,6 @@ class CreateUsersTable extends Migration
             $table->boolean('google2fa_enabled')->default(false);
         });
     }
-
     /**
      * Reverse the migrations.
      *
