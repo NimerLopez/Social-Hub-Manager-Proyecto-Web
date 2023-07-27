@@ -7,6 +7,8 @@ use App\Http\Requests\Auth\LoginRequest;
 use App\Providers\RouteServiceProvider;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use PragmaRX\Google2FALaravel\Google2FA;
+use App\Models\User;
 
 class AuthenticatedSessionController extends Controller
 {
@@ -38,8 +40,7 @@ class AuthenticatedSessionController extends Controller
         // Verificar si la autenticación de doble factor está habilitada para el usuario
         if ($user->google2fa_enabled) {
             
-
-
+            $this->generateGoogle2FA($user);
             Auth::guard('web')->logout();//cierra sesion ya que no puede accerder
             // Si 2FA está habilitado, redireccionar al usuario a la página de verificación 2FA.
             return redirect()->route('2fact');
@@ -49,18 +50,14 @@ class AuthenticatedSessionController extends Controller
     }
     private function generateGoogle2FA(User $user)
     {
-        // Obtener el proveedor de autenticación 2FA
-        $google2fa = app(Authenticator::class)->fromUser($user);
-
-        // Generar el código QR y la clave secreta para el usuario
-        $qrImage = $google2fa->getQRCodeInline(
+        $google2fa = app(Google2FA::class);
+        $google2faUrl = $google2fa->getQRCodeUrl(
             config('app.name'),
             $user->email,
-            $google2fa->getKeyUri($user->email, $user->google2fa_secret)
+            $user->google2fa_secret
         );
-
         $secretKey = $google2fa->generateSecretKey();
-
+        dd($secretKey);
         // Aquí puedes guardar el código QR y la clave secreta en la base de datos si es necesario.
         // Por ejemplo:
         // $user->update([
