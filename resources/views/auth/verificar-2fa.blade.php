@@ -13,14 +13,18 @@
 
         <!-- Validation Errors -->
         <x-auth-validation-errors class="mb-4" :errors="$errors" />
-
-        <form method="POST" action="/verificar-2fa">
+        <div>
+            <h1>Verificación de Doble Factor</h1>
+            <p>Escanea el código QR con tu aplicación de autenticación:</p>
+            <img src="{{ $user->google2fa_qr }}" alt="Código QR de Google Authenticator">
+        </div>
+        <form method="POST" action="/verificar2fa">
             @csrf
 
             <!-- 2FA Token -->
             <div>
                 <x-label for="2fa_token" :value="__('2FA Token')" />
-
+                <input type="hidden" name="user_id" value="{{ $user->id }}">
                 <x-input id="2fa_token" class="block mt-1 w-full" type="text" name="2fa_token" required autofocus />
             </div>
 

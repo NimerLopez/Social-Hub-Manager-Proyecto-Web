@@ -26,4 +26,5 @@ require __DIR__.'/auth.php';
 Route::get('/verificar2fa', [AuthenticatedSessionController::class, 'aut2fac'])
 ->name('2fact');
 
+Route::post('/verificar2fa', [AuthenticatedSessionController::class, 'postVerifyTwoFactor']);
 
