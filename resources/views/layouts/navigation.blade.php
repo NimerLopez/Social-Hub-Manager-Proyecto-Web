@@ -16,6 +16,14 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('dashboard')">
+                            <figure style="display: inline-block; width: 25px; height: 25px; background-color: gray; border-radius: 50%; text-align: center; line-height: 20px;">
+                                <span style="color: white; font-size: 20px;">⚙️</span>
+                            </figure>
+                            Configuraciones
+                        </x-nav-link>
+                    </div>
                 </div>
 
                 <!-- Settings Dropdown -->

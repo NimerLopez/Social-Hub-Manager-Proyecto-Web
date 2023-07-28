@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\GoogleAuthenticatorController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -23,8 +24,8 @@ Route::get('/dashboard', function () {
 })->middleware(['auth'])->name('dashboard');
 require __DIR__.'/auth.php';
 
-Route::get('/verificar2fa', [AuthenticatedSessionController::class, 'aut2fac'])
+Route::get('/verificar2fa', [GoogleAuthenticatorController::class, 'aut2fac'])
 ->name('2fact');
 
-Route::post('/verificar2fa', [AuthenticatedSessionController::class, 'postVerifyTwoFactor']);
+Route::post('/verificar2fa', [GoogleAuthenticatorController::class, 'postVerifyTwoFactor']);
 
