@@ -53,8 +53,7 @@ class LoginRequest extends FormRequest
             ]);
         }
     
-        RateLimiter::clear($this->throttleKey());
-    
+        RateLimiter::clear($this->throttleKey());  
         // Obtener al usuario autenticado
         $user = Auth::user();
     

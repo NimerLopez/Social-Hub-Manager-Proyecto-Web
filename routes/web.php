@@ -22,6 +22,10 @@ use App\Http\Controllers\Auth\AuthenticatedSessionController;
 Route::get('/dashboard', function () {
     return view('dashboard');
 })->middleware(['auth'])->name('dashboard');
+Route::get('/configuraciones', function () {
+    return view('configuraciones');
+})->middleware(['auth'])->name('config');
+
 require __DIR__.'/auth.php';
 
 Route::get('/verificar2fa', [GoogleAuthenticatorController::class, 'aut2fac'])
@@ -29,3 +33,6 @@ Route::get('/verificar2fa', [GoogleAuthenticatorController::class, 'aut2fac'])
 
 Route::post('/verificar2fa', [GoogleAuthenticatorController::class, 'postVerifyTwoFactor']);
 
+Route::post('/set/estado', [GoogleAuthenticatorController::class, 'updateGoogle2faEnabledStatus']);
+
+Route::post('/set/keys', [GoogleAuthenticatorController::class, 'changeCredentials2FA']);

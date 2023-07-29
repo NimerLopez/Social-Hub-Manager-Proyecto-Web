@@ -33,8 +33,7 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
         $user = $request->user();
         // Verificar si la autenticación de doble factor está habilitada para el usuario
-        if ($user->google2fa_enabled) {
-            //$this->generateGoogle2FA($user);
+        if ($user->google2fa_enabled) {         
             Auth::guard('web')->logout(); //cierra sesion ya que no puede accerder
             session(['user_id' => $user->id]);//crea una sesion con el user-id      
             return redirect()->route('2fact');//redicreciona al 2fac
