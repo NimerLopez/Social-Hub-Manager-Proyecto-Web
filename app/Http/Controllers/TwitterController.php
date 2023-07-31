@@ -16,7 +16,7 @@ class TwitterController extends Controller
     // dd($user);
     // $this->user->twitter_id = $user->id;
     // $this->user->save();
-
     return redirect()->back()->with('status-twitter', 'Se Conecto a twitter');
    }
 }
+ 

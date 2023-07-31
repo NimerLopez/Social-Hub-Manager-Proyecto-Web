@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleAuthenticatorController;
+use App\Http\Controllers\RedditAuthController;
 use App\Http\Controllers\TwitterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -37,3 +38,12 @@ Route::post('/verificar2fa', [GoogleAuthenticatorController::class, 'postVerifyT
 Route::post('/set/estado', [GoogleAuthenticatorController::class, 'updateGoogle2faEnabledStatus']);
 
 Route::post('/set/keys', [GoogleAuthenticatorController::class, 'changeCredentials2FA']);
+
+Route::get('auth/reddit', [RedditAuthController::class, 'redirectToReddit'])->name('reddit.auth');
+
+Route::get('auth/reddit/callback', [RedditAuthController::class, 'handleRedditCallback']);
+
+Route::get('/publicaciones', [RedditAuthController::class, 'index'])->name('publicaciones.index');
+
+Route::post('/reddit/post', [RedditController::class, 'post'])->name('reddit.post');
+
