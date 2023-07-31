@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleAuthenticatorController;
+use App\Http\Controllers\TwitterController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -25,7 +26,7 @@ Route::get('/dashboard', function () {
 Route::get('/configuraciones', function () {
     return view('configuraciones');
 })->middleware(['auth'])->name('config');
-
+Route::post('/connect/oaut/twitter', [TwitterController::class, 'ConnectOautTwitter'])->middleware(['auth']);
 require __DIR__.'/auth.php';
 
 Route::get('/verificar2fa', [GoogleAuthenticatorController::class, 'aut2fac'])

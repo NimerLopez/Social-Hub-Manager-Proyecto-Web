@@ -74,6 +74,6 @@ class GoogleAuthenticatorController extends Controller
         $user->update([
             'google2fa_qr' => $qrCodeUrl,
             'google2fa_secret' => $secretKey,
-        ]);
+        ]); 
     }
 }

@@ -9,7 +9,15 @@
         <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
             <div class="bg-white overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 bg-white border-b border-gray-200">
-                    You're logged in!
+                <div class="flex flex-col items-center justify-center">
+                    <form action="/connect/oaut/twitter" method="POST" class="max-w-md w-full">
+                        @csrf
+                        <div class="flex items-center mb-4">
+                            <img src="https://graffica.ams3.digitaloceanspaces.com/2023/07/rQYXqS5v-F1ySdm9WYAIbjHo-1024x1024.jpeg" alt="Imagen" class="w-40 h-40 rounded-full mr-4">
+                            <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Conectar</button>
+                        </div>
+                    </form>
+                </div>
                 </div>
             </div>
         </div>
