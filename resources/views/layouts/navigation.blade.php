@@ -16,6 +16,7 @@
                             {{ __('Dashboard') }}
                         </x-nav-link>
                     </div>
+                      <!-- Configuraciones -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('config')" :active="request()->routeIs('config')">
                             <figure style="display: inline-block; width: 25px; height: 25px; background-color: gray; border-radius: 50%; text-align: center; line-height: 20px;">
@@ -24,6 +25,13 @@
                             Configuraciones
                         </x-nav-link>
                     </div>
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                    @if (session('reddit_access_token'))
+                        <x-nav-link :href="route('publicaciones.index')" :active="request()->routeIs('publicaciones.index')">
+                            {{ __('Reddit') }}
+                        </x-nav-link>
+                    @endif
+                    </div>    
                 </div>
 
                 <!-- Settings Dropdown -->

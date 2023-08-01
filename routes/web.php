@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleAuthenticatorController;
+use App\Http\Controllers\PostsRedditController;
 use App\Http\Controllers\RedditAuthController;
 use App\Http\Controllers\TwitterController;
 use Illuminate\Support\Facades\Route;
@@ -45,5 +46,5 @@ Route::get('auth/reddit/callback', [RedditAuthController::class, 'handleRedditCa
 
 Route::get('/publicaciones', [RedditAuthController::class, 'index'])->name('publicaciones.index');
 
-Route::post('/reddit/post', [RedditController::class, 'post'])->name('reddit.post');
+Route::post('/reddit/post', [PostsRedditController::class, 'store'])->name('reddit.post');
 
