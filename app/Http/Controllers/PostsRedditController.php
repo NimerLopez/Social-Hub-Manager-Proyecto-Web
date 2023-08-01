@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\tools\SaveHistory;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Session;
@@ -23,20 +24,16 @@ class PostsRedditController extends Controller
         if ($validator->fails()) {//returna el error
             return back()->withErrors($validator)->withInput();
         }
-
-        $title = $request->input('title');
-        $content = $request->input('content');
-        $subreddit = $request->input('subreddit');
-
-        $client = new Client([
+        $client = new Client([//declaracion de estructura del request
             'base_uri' => 'https://oauth.reddit.com/',
             'headers' => [
                 'Authorization' => 'Bearer ' . $accessToken,
-                'User-Agent' => 'TrodoTC', // Cambia esto al nombre de tu aplicación
+                'User-Agent' => 'TrodoTC',
             ],
         ]);
 
-        // Realiza la publicación en Reddit utilizando el token de acceso
+        // Realiza la publicación en Reddit
+        try{
         $response = $client->post('api/submit', [
             'form_params' => [
                 'kind' => 'self',
@@ -45,15 +42,16 @@ class PostsRedditController extends Controller
                 'text' => $request->input('content'),
             ],
         ]);
-        //dd($response);
-        // Verifica la respuesta de Reddit
-        if ($response->getStatusCode() == 200) {
-            // Publicación exitosa, redirige a la vista de publicaciones
-            return redirect()->route('publicaciones.index')->with('success', 'Publicación exitosa en Reddit.');
-        } else {
-            // Error en la publicación, redirige con un mensaje de error
-            return back()->with('error', 'Error al publicar en Reddit.');
-        }
-
-   }
+        //dd($response);   
+        // Publicación exitosa, redirige a la vista de publicaciones
+        $saveHistory = new SaveHistory();
+        $saveHistory->save('status','Publicacion Exitosa: code-> ' . $response->getStatusCode());
+        return redirect()->route('publicaciones.index')->with('success', 'Publicación exitosa en Reddit.');      
+    }catch(\Exception $e){
+        $errorMessage = $e->getMessage();
+        $saveHistory = new SaveHistory();
+        $saveHistory->save('error', 'Error en la aplicación: ' . $errorMessage);
+        return back()->with('error-status', 'Ocurrió un error en la aplicación: ' . $errorMessage);
+    }//fin catch
+   }//fin store
 }

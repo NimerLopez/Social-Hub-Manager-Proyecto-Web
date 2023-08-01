@@ -25,13 +25,20 @@
                             Configuraciones
                         </x-nav-link>
                     </div>
+                    <!-- reddit -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if (session('reddit_access_token'))
                         <x-nav-link :href="route('publicaciones.index')" :active="request()->routeIs('publicaciones.index')">
                             {{ __('Reddit') }}
                         </x-nav-link>
                     @endif
-                    </div>    
+                    </div>
+                    <!-- Historial    -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('historial')" :active="request()->routeIs('historial')">
+                            {{ __('Historial') }}   
+                        </x-nav-link>
+                    </div>
                 </div>
 
                 <!-- Settings Dropdown -->

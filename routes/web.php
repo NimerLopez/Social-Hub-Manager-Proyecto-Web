@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\GoogleAuthenticatorController;
+use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\PostsRedditController;
 use App\Http\Controllers\RedditAuthController;
 use App\Http\Controllers\TwitterController;
@@ -48,3 +49,4 @@ Route::get('/publicaciones', [RedditAuthController::class, 'index'])->name('publ
 
 Route::post('/reddit/post', [PostsRedditController::class, 'store'])->name('reddit.post');
 
+Route::get('/historial', [HistorialController::class, 'index'])->name('historial');
