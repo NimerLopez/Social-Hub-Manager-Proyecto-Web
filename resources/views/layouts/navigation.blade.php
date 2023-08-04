@@ -26,13 +26,22 @@
                         </x-nav-link>
                     </div>
                     <!-- reddit -->
-                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                     @if (session('reddit_access_token'))
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">                    
                         <x-nav-link :href="route('publicaciones.index')" :active="request()->routeIs('publicaciones.index')">
                             {{ __('Reddit') }}
-                        </x-nav-link>
-                    @endif
+                        </x-nav-link>                  
                     </div>
+                    @endif
+                     <!-- Twitter -->
+                     @if (session('twitter_access_token'))
+                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                   
+                        <x-nav-link :href="route('publicaciones.twitter')" :active="request()->routeIs('publicaciones.twitter')">
+                            {{ __('Twitter') }}
+                        </x-nav-link>                  
+                    </div>
+                    @endif
                     <!-- Historial    -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('historial')" :active="request()->routeIs('historial')">

@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\GoogleAuthenticatorController;
 use App\Http\Controllers\HistorialController;
+use App\Http\Controllers\LinkedinController;
 use App\Http\Controllers\PostsRedditController;
 use App\Http\Controllers\RedditAuthController;
 use App\Http\Controllers\TwitterController;
+use App\Http\Controllers\TwitterPostController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 
@@ -29,7 +31,12 @@ Route::get('/dashboard', function () {
 Route::get('/configuraciones', function () {
     return view('configuraciones');
 })->middleware(['auth'])->name('config');
+
 Route::post('/connect/oaut/twitter', [TwitterController::class, 'ConnectOautTwitter'])->middleware(['auth']);
+Route::get('auth/twitter/callback', [TwitterController::class, 'TwitterCallback'])->middleware(['auth']);
+Route::get('/publicaciones/twitter', [TwitterPostController::class, 'index'])->name('publicaciones.twitter');
+Route::post('/twitter/post', [TwitterPostController::class, 'postToTwitter'])->name('twitter.post');
+
 require __DIR__.'/auth.php';
 
 Route::get('/verificar2fa', [GoogleAuthenticatorController::class, 'aut2fac'])
@@ -50,3 +57,11 @@ Route::get('/publicaciones', [RedditAuthController::class, 'index'])->name('publ
 Route::post('/reddit/post', [PostsRedditController::class, 'store'])->name('reddit.post');
 
 Route::get('/historial', [HistorialController::class, 'index'])->name('historial');
+
+
+//linkedin
+
+Route::get('auth/linkedin', [LinkedinController::class, 'linkedinToReddit'])->name('linkedin.auth');
+
+Route::get('auth/Linkedin/callback', [LinkedinController::class, 'handleLinkedinCallback']);
+

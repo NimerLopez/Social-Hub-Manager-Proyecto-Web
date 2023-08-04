@@ -63,6 +63,7 @@
                         </div>
                         <div>
                             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
+                            <a href="#" class="px-4 py-2 bg-black text-white rounded">SendToPostQueue</a>
                         </div>
                     </form>
                 </div>

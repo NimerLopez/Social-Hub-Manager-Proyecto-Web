@@ -8,15 +8,19 @@ use Laravel\Socialite\Facades\Socialite;
 
 class TwitterController extends Controller
 {
-   public function ConnectOautTwitter(){
-    $user = Socialite::driver('twitter')->user();
-    dd($user);    
-    // $user = Socialite::driver('facebook')->user();
-    /// Save the user's Twitter ID in the database.
-    // dd($user);
-    // $this->user->twitter_id = $user->id;
-    // $this->user->save();
-    return redirect()->back()->with('status-twitter', 'Se Conecto a twitter');
+   public function ConnectOautTwitter(){    
+    return Socialite::driver('twitter')->redirect();
    }
+   public function TwitterCallback(Request $request){
+      try {
+      $user = Socialite::driver('twitter')->user();
+      $request->session()->put('twitter_access_token', $user->token);
+      $request->session()->put('twitter_access_token_secret', $user->tokenSecret);    
+     } catch (\Exception $e) {
+         return redirect('/dashboard')->with('error', 'Ha ocurrido un error al autenticar con Twitter.');
+     }
+     return redirect()->route('publicaciones.twitter')->with('success', 'Autenticado correctamente con Twitter.');
+   }
+
 }
  
