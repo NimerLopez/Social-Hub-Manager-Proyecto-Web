@@ -3,6 +3,8 @@
 use App\Http\Controllers\GoogleAuthenticatorController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\LinkedinController;
+use App\Http\Controllers\LinkedinPostController;
+use App\Http\Controllers\PostsQueueController;
 use App\Http\Controllers\PostsRedditController;
 use App\Http\Controllers\RedditAuthController;
 use App\Http\Controllers\TwitterController;
@@ -33,8 +35,11 @@ Route::get('/configuraciones', function () {
 })->middleware(['auth'])->name('config');
 
 Route::post('/connect/oaut/twitter', [TwitterController::class, 'ConnectOautTwitter'])->middleware(['auth']);
+
 Route::get('auth/twitter/callback', [TwitterController::class, 'TwitterCallback'])->middleware(['auth']);
+
 Route::get('/publicaciones/twitter', [TwitterPostController::class, 'index'])->name('publicaciones.twitter');
+
 Route::post('/twitter/post', [TwitterPostController::class, 'postToTwitter'])->name('twitter.post');
 
 require __DIR__.'/auth.php';
@@ -65,3 +70,12 @@ Route::get('auth/linkedin', [LinkedinController::class, 'linkedinToReddit'])->na
 
 Route::get('auth/Linkedin/callback', [LinkedinController::class, 'handleLinkedinCallback']);
 
+Route::get('publicaciones/LinkedIn', [LinkedinPostController::class, 'index'])->name('publicaciones.linkedin');
+
+Route::post('LinkedIn/post', [LinkedinPostController::class, 'postOnLinkedin'])->name('linkedin.post');
+
+//cola
+
+Route::post('/send/post/queue/reddit', [PostsQueueController::class, 'sendToPostQueueReddit'])->name('send-to-post-queue-reddit');
+
+Route::post('/send/post/queue/linkedin', [PostsQueueController::class, 'sendToPostQueueLinkedin'])->name('send-to-post-queue-linkedin');

@@ -42,6 +42,14 @@
                         </x-nav-link>                  
                     </div>
                     @endif
+                     <!-- Linkedin -->
+                     @if (session('linkedin_access_token'))
+                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">                 
+                        <x-nav-link :href="route('publicaciones.linkedin')" :active="request()->routeIs('publicaciones.linkedin')">
+                            {{ __('LinkedIn') }}
+                        </x-nav-link>                  
+                    </div>
+                    @endif
                     <!-- Historial    -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('historial')" :active="request()->routeIs('historial')">
