@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\RedditSessions;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
 use App\Http\Controllers\Controller;
@@ -50,6 +51,13 @@ class RedditAuthController extends Controller
         //dd($data);
         $accessToken = $data['access_token'];
         Session::put('reddit_access_token', $accessToken);
+        $attributes = ([
+            'id_usuario' => auth()->user()->id,
+            'reddit_access_token' => $accessToken
+        ]);
+        
+        RedditSessions::updateOrCreate(['id_usuario' => auth()->user()->id], $attributes);//guarda en la base de datos
+
         return redirect()->route('publicaciones.index');
     }
 }

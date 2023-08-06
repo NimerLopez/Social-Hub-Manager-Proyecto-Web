@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\LinkedinSessions;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
@@ -47,24 +48,18 @@ class LinkedinController extends Controller
         //genera el id de usuario
         $user_id = Http::withToken($accesstoken)->get('https://api.linkedin.com/v2/me');
         $code = $user_id["id"];
-        Session::put('linkedin_access_token', $accesstoken);
-        Session::put('linkedin_user_id', $code);
-        return redirect()->route('publicaciones.linkedin');
-        //envio de mensajes 
-        // $shareData = [
-        //     "owner" => "urn:li:person:{$code}",
-        //     "text" => [
-        //         "text" => "Hello World! This is my first Share on LinkedIn!"
-        //     ]
-        // ];
-        // $responsemessage = Http::withHeaders([
-        //     'Authorization' => "Bearer {$access_token}",
-        //     'Content-Type' => 'application/json',
-        // ])->post('https://api.linkedin.com/v2/shares', $shareData);
-
-
-        // dd($responsemessage->status(), $responsemessage->json());      
-        // dd("Hola");
+        $attributes = ([
+            'id_usuario' => auth()->user()->id,
+            'linkedin_access_token' => $accesstoken,
+            'linkedin_user_id' => $code
+        ]);
+        if ($user_id->successful()) {
+            Session::put('linkedin_access_token', $accesstoken);//guarda en sesion
+            Session::put('linkedin_user_id', $code);//guarda en sesion     
+            LinkedinSessions::updateOrCreate(['id_usuario' => auth()->user()->id], $attributes);//guarda en la base de datos
+            return redirect()->route('publicaciones.linkedin'); 
+        } 
+        //returnar error        
     }
 
 }
