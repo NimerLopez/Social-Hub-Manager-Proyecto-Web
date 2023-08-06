@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CrudScheduleController;
 use App\Http\Controllers\GoogleAuthenticatorController;
 use App\Http\Controllers\HistorialController;
 use App\Http\Controllers\LinkedinController;
@@ -79,3 +80,8 @@ Route::post('LinkedIn/post', [LinkedinPostController::class, 'postOnLinkedin'])-
 Route::post('/send/post/queue/reddit', [PostsQueueController::class, 'sendToPostQueueReddit'])->name('send-to-post-queue-reddit');
 
 Route::post('/send/post/queue/linkedin', [PostsQueueController::class, 'sendToPostQueueLinkedin'])->name('send-to-post-queue-linkedin');
+
+//Horarios
+Route::get('/shedule/create', [CrudScheduleController::class, 'index'])->name('shedule.create');
+
+

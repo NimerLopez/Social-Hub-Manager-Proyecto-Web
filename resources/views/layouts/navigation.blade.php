@@ -56,7 +56,17 @@
                             {{ __('Historial') }}   
                         </x-nav-link>
                     </div>
+
+                    <!-- Horarios    -->
+                    <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
+                        <x-nav-link :href="route('shedule.create')" :active="request()->routeIs('shedule.create')">
+                            {{ __('Horarios') }}   
+                        </x-nav-link>
+                    </div>
+
                 </div>
+                
+
 
                 <!-- Settings Dropdown -->
                 <div class="hidden sm:flex sm:items-center sm:ml-6">
@@ -87,7 +97,11 @@
                             </div>
                         </div>
                     </div>
+
+
+
                 </div>
+
 
                 <!-- Hamburger -->
                 <div class="-mr-2 flex items-center sm:hidden">
