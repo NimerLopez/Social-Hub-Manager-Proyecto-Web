@@ -84,4 +84,14 @@ Route::post('/send/post/queue/linkedin', [PostsQueueController::class, 'sendToPo
 //Horarios
 Route::get('/shedule/create', [CrudScheduleController::class, 'index'])->name('shedule.create');
 
+Route::post('/pots/schedule', [CrudScheduleController::class, 'store'])->name('post-new-schedule');
+
+Route::get('/schedule/delete/{id}', [CrudScheduleController::class, 'delete'])->name('schedule.eliminar');
+
+Route::get('/schedule/update/view/{id}', [CrudScheduleController::class, 'editView'])->name('schedule.edit');
+
+Route::put('/schedule/update/{id}', [CrudScheduleController::class, 'edit'])->name('schedule.update');
+
+
+
 
