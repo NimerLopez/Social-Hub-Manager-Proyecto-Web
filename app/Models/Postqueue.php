@@ -24,4 +24,12 @@ class Postqueue extends Model
             ->get();
         return $oldestPostsByUser;
     }
+    public function getAllUserIds()
+    {
+        $userIds = DB::table($this->table)
+            ->select('id_usuario')
+            ->distinct()
+            ->pluck('id_usuario');
+        return $userIds;
+    }
 }

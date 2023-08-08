@@ -20,4 +20,8 @@ class Schedule extends Model
             ->where('hour', $time)
             ->exists();
     }
+    public static function getByUserId($user_id)
+    {
+        return static::where('user_id', $user_id)->get();
+    }
 }

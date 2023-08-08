@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Schedule;
 use Illuminate\Validation\Rule;
+use Illuminate\Support\Facades\Date;
 
 class CrudScheduleController extends Controller
 {
@@ -20,7 +21,8 @@ class CrudScheduleController extends Controller
             'day' => 'required|string',
             'time' => 'required|date_format:H:i',
         ]);
-    
+        //$currentTime = date('H:i');
+        //dd($currentTime);
         $user_id = Auth::id();
         $day = $validated['day'];
         $time = $validated['time'];
@@ -29,7 +31,7 @@ class CrudScheduleController extends Controller
             // Si existe un horario duplicado muestra el error
             return back()->withErrors(['error' => 'Ya existe un horario con el mismo día y hora.']);
         }
-        // Crear una nueva instancia del modelo Schedule con los datos validados y el user_id
+        // Crear una nueva instancia del mo   delo Schedule con los datos validados y el user_id
         $schedule = new Schedule([
             'user_id' => $user_id,
             'day' => $day,
@@ -56,7 +58,7 @@ class CrudScheduleController extends Controller
     public function editView($id)
     {
         $schedule = Schedule::find($id);
-        // Verificar que el horario exista y pertenezca al usuario autenticado
+        //Verificar que el horario exista y pertenezca al usuario autenticado
         if (!$schedule || $schedule->user_id !== Auth::id()) {//verifica que el horario sea de el          
             return back()->withErrors(['error' => 'El horario no fue encontrado o no tienes permiso para editarlo.']);
         }

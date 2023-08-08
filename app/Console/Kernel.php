@@ -15,7 +15,7 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        // $schedule->command('inspire')->hourly();
+         $schedule->command('init:task')->everyMinute();//declara el tiempo de ejecucion
     }
 
     /**
@@ -25,8 +25,8 @@ class Kernel extends ConsoleKernel
      */
     protected function commands()
     {
+        Commands\ScheduleTask::class;//declara la tarea
         $this->load(__DIR__.'/Commands');
-
         require base_path('routes/console.php');
     }
 }
