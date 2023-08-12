@@ -9,7 +9,7 @@ use Storage;
 
 class ValidateSchedule
 {
-    public function ValidateDate($schedules)
+    public function ValidateDay($schedules)
     {
         foreach ($schedules as $schedule) {
             if ($this->validateSingleSchedule($schedule)) {
@@ -23,12 +23,23 @@ class ValidateSchedule
     {
         $currentDay = Date::now()->dayName;
         $currentTime = date('H:i');
-        $scheduleHour = substr($schedule->hour, 0, 5);
-        if ($currentDay==$schedule->day && $currentTime==$scheduleHour) {
-            Storage::append("archivo.txt",$currentDay." ".  $scheduleHour. "" . $currentTime);
+        $bdHour = substr($schedule->hour, 0, 5);
+        if ($currentDay==$schedule->day && $currentTime==$bdHour) {
+            Storage::append("archivo.txt",$currentDay." ".  $bdHour. "" . $currentTime);
             return true;
         }
         return false;
+    }
+    public function ValidateAllDate($queue){
+        $currentDate = Date::now()->toDateString();
+        $currentTime = date('H:i');
+        $bdHour = substr($queue->scheduled_time, 0, 5);
+
+        if ($currentDate == $queue->scheduled_date &&  $currentTime==$bdHour) {
+            return true;
+        }else{
+            return false;
+        }
     }
     
 }

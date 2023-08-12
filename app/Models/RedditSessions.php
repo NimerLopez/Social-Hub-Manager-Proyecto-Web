@@ -16,9 +16,9 @@ class RedditSessions extends Model
     }
     public function getRedditAccess($userId)
     {
-        $access = DB::table('reddit_sesions')
-            ->select('reddit_access_token')
-            ->where('id_usuario', $userId)->get();
+        $access = DB::table('reddit_sessions')
+            ->where('id_usuario', $userId)
+            ->value('reddit_access_token');
         return $access;
     }
 }

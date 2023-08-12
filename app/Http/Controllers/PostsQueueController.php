@@ -23,6 +23,8 @@ class PostsQueueController extends Controller
             'title' => $request->input('title'),
             'message' => $request->input('content'),
             'group' => $request->input('subreddit'),
+            'scheduled_date'=>$request->input('schedule-date'),
+            'scheduled_time'=>$request->input('schedule-time'),
         ]);
         // Redireccionar o hacer cualquier otra acción después de guardar
         return redirect()->route('publicaciones.index')->with('success', 'Esta publicacion se envio a cola de Reddit.');   
@@ -40,8 +42,10 @@ class PostsQueueController extends Controller
             'title' => '',
             'message' => $request->input('linkedin_text'),
             'group' => '',
+            'scheduled_date'=>$request->input('schedule-date'),
+            'scheduled_time'=>$request->input('schedule-time'),
         ]);
         // Redireccionar o hacer cualquier otra acción después de guardar
-        return redirect()->route('publicaciones.index')->with('success', 'Esta publicacion se envio a cola de Linkedin.');   
+        return redirect()->route('publicaciones.linkedin')->with('success', 'Esta publicacion se envio a cola de Linkedin.');   
     }
 }

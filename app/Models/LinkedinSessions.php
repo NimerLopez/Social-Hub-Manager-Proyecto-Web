@@ -16,9 +16,9 @@ class LinkedinSessions extends Model
     }
     public function getLinkedAccess($userId)
     {
-        $access = DB::table('linkedin_sesions')
+        $access = DB::table('linkedin_sessions')
             ->select('linkedin_access_token', 'linkedin_user_id')
-            ->where('id_usuario', $userId)->get();
+            ->where('id_usuario', $userId)->first();
         return $access;
     }
 }

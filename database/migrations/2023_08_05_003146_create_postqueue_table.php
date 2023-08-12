@@ -20,6 +20,8 @@ class CreatePostqueueTable extends Migration
             $table->string('title')->nullable();
             $table->text('message');
             $table->string('group')->nullable();
+            $table->date('scheduled_date')->nullable();
+            $table->time('scheduled_time')->nullable();
             $table->timestamps();
             $table->foreign('id_usuario')->references('id')->on('users');
         });
