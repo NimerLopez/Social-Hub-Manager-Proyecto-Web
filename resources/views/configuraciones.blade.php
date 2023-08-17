@@ -31,6 +31,8 @@
                     @if (session('status'))
                         <p class="text-green-500 mt-2">{{ session('status') }}</p>
                     @endif
+
+                    
                 </div>
                 <div class="p-6 bg-white border-b border-gray-200 text-center"> 
                     <div>

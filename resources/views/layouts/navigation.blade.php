@@ -19,7 +19,7 @@
                       <!-- Configuraciones -->
                     <div class="hidden space-x-8 sm:-my-px sm:ml-10 sm:flex">
                         <x-nav-link :href="route('config')" :active="request()->routeIs('config')">
-                            <figure style="display: inline-block; width: 25px; height: 25px; background-color: gray; border-radius: 50%; text-align: center; line-height: 20px;">
+                            <figure style="display: inline-block; width: 20px; height: 20px; background-color: transparent; border-radius: 50%; text-align: center; line-height: 20px; margin-right:7%">
                                 <span style="color: white; font-size: 20px;">⚙️</span>
                             </figure>
                             Configuraciones
