@@ -6,13 +6,13 @@
     </x-slot>
     <div class="mx-auto mt-8 grid grid-cols-2 gap-8">
 
-            <div>
+            <div class="ml-20">
             <h3 class="text-2xl font-semibold text-gray-800 mb-4">Crear Horario:</h3>   
-            <form action="{{ route('post-new-schedule') }}" method="POST">
+            <form action="{{ route('post-new-schedule') }}" method="POST" >
                 @csrf
                 <x-schedule.week ></x-schedule-week>
                 <x-schedule.hour></x-schedule-hour>
-                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600">Crear publicación</button>
+                <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-5">Crear publicación</button>
             </form>    
             </div>     
         <div>
