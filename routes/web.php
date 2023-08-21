@@ -35,13 +35,6 @@ Route::get('/configuraciones', function () {
     return view('configuraciones');
 })->middleware(['auth'])->name('config');
 
-Route::post('/connect/oaut/twitter', [TwitterController::class, 'ConnectOautTwitter'])->middleware(['auth']);
-
-Route::get('auth/twitter/callback', [TwitterController::class, 'TwitterCallback'])->middleware(['auth']);
-
-Route::get('/publicaciones/twitter', [TwitterPostController::class, 'index'])->name('publicaciones.twitter');
-
-Route::post('/twitter/post', [TwitterPostController::class, 'postToTwitter'])->name('twitter.post');
 
 require __DIR__.'/auth.php';
 
@@ -54,6 +47,18 @@ Route::post('/set/estado', [GoogleAuthenticatorController::class, 'updateGoogle2
 
 Route::post('/set/keys', [GoogleAuthenticatorController::class, 'changeCredentials2FA']);
 
+Route::get('/historial', [HistorialController::class, 'index'])->name('historial');
+
+//twitter
+Route::post('/connect/oaut/twitter', [TwitterController::class, 'ConnectOautTwitter'])->middleware(['auth']);
+
+Route::get('auth/twitter/callback', [TwitterController::class, 'TwitterCallback'])->middleware(['auth']);
+
+Route::get('/publicaciones/twitter', [TwitterPostController::class, 'index'])->name('publicaciones.twitter');
+
+Route::post('/twitter/post', [TwitterPostController::class, 'postToTwitter'])->name('twitter.post');
+
+//reddit
 Route::get('auth/reddit', [RedditAuthController::class, 'redirectToReddit'])->name('reddit.auth');
 
 Route::get('auth/reddit/callback', [RedditAuthController::class, 'handleRedditCallback']);
@@ -62,11 +67,7 @@ Route::get('/publicaciones', [RedditAuthController::class, 'index'])->name('publ
 
 Route::post('/reddit/post', [PostsRedditController::class, 'store'])->name('reddit.post');
 
-Route::get('/historial', [HistorialController::class, 'index'])->name('historial');
-
-
 //linkedin
-
 Route::get('auth/linkedin', [LinkedinController::class, 'linkedinToReddit'])->name('linkedin.auth');
 
 Route::get('auth/Linkedin/callback', [LinkedinController::class, 'handleLinkedinCallback']);
@@ -74,6 +75,7 @@ Route::get('auth/Linkedin/callback', [LinkedinController::class, 'handleLinkedin
 Route::get('publicaciones/LinkedIn', [LinkedinPostController::class, 'index'])->name('publicaciones.linkedin');
 
 Route::post('LinkedIn/post', [LinkedinPostController::class, 'postOnLinkedin'])->name('linkedin.post');
+
 
 //cola
 

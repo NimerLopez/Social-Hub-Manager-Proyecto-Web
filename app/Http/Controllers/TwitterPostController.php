@@ -36,7 +36,6 @@ class TwitterPostController extends Controller
                     'text' => $tweet,
                 ],
             ]);
-            dd($response);
             // Aquí puedes agregar el código para manejar la respuesta de la API de Twitter, por ejemplo, guardar el ID del tweet creado, mostrar un mensaje de éxito, etc.
         } catch (Exception $e) {
             

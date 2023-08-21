@@ -2,7 +2,7 @@
      <x-auth-header/> <!--login and register and home redirect -->
     <x-auth-card>
         <x-slot name="logo">
-            <a href="/" class="px-7 py-4 bg-gray-200 border border-transparent rounded-md font-semibold text-xs text-gray-600 uppercase tracking-widest hover:bg-gray-700 active:bg-gray-900 focus:outline-none focus:border-gray-900 focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ">
+            <a href="/" class="px-7 py-4 bg-gray-400 border border-transparent rounded-md font-semibold text-xl text-white uppercase tracking-widest hover:bg-gray-900 hover:text-gray-100 focus:outline-none focus:ring ring-gray-300 disabled:opacity-25 transition ease-in-out duration-150 ">
                 Trodo Manager
             </a>
         </x-slot>

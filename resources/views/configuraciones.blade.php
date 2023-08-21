@@ -11,7 +11,7 @@
                 <div class="p-6 bg-white border-b border-gray-200 text-center"> 
                                  
                     @if (Auth::user()->google2fa_enabled)
-                        <p class="mb-4">Configuraciones desactivar 2 fact</p>
+                        <p class="block text-gray-700 font-bold mb-2">Configuraciones desactivar 2 fact</p>
                         <?php $google2faEnabled = false;?>
                     @else
                         <p class="mb-4">Configuraciones activar 2fac</p>
