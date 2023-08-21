@@ -21,6 +21,5 @@ class TwitterController extends Controller
      }
      return redirect()->route('publicaciones.twitter')->with('success', 'Autenticado correctamente con Twitter.');
    }
-
 }
  
