@@ -64,16 +64,24 @@ class PostQueueSend
                     'text' => $queueData->message,
                 ],
             ]);
-            $deliteQueue= Postqueue::find($queueData->id);//busca la c
-            $deliteQueue->delete();
             //VALIDAR RESPONSE Y GUARDAR EN HISTORIAL
-            $saveHistory = new SaveHistory();
-            $saveHistory->save('status','Publicacion Exitosa: code-> ' . $response->getStatusCode());                   
+            if ($response->getStatusCode()==201) {
+                $saveHistory = new SaveHistory();
+                $saveHistory->saveCron('status','Publicacion Exitosa Reddit: code->' . $response->getStatusCode(),$queueData->id_usuario);           
+            
+                $deliteQueue= Postqueue::find($queueData->id);//busca la c
+                $deliteQueue->delete();
+            }else{
+                $saveHistory = new SaveHistory();
+                $saveHistory->saveCron('error', 'Error en la aplicación Reddit: ',$queueData->id_usuario);
+            }
+            
+                   
             return $response;
         } catch (\Throwable $th) {
-            $errorMessage = $e->getMessage();
+            $errorMessage = $th->getMessage();
             $saveHistory = new SaveHistory();
-            $saveHistory->save('error', 'Error en la aplicación: ' . $errorMessage);
+            $saveHistory->saveCron('error', 'Error en la aplicación Reddit: ' . $errorMessage,$queueData->id_usuario);
             return $th;
         }
 
@@ -94,13 +102,20 @@ class PostQueueSend
                 'Content-Type' => 'application/json',
             ])->post('https://api.linkedin.com/v2/shares', $shareData);
             if ($responsemessage->getStatusCode() == 201) {
-                $deliteQueue= Postqueue::find($queueData->id);//busca la c
+                $saveHistory = new SaveHistory();
+                $saveHistory->saveCron('status','Publicacion Exitosa Linkedin: code->' . $responsemessage->getStatusCode(),$queueData->id_usuario);           
+                
+                $deliteQueue= Postqueue::find($queueData->id);
                 $deliteQueue->delete();
-            }else{
-                //guardar historial del error
+            }else{            
+                $saveHistory = new SaveHistory();
+                $saveHistory->saveCron('error', 'Error en la aplicación Linkedin: ',$queueData->id_usuario);
             }     
             return $responsemessage->getStatusCode();           
         } catch (\Throwable $th) {
+            $errorMessage = $th->getMessage();
+            $saveHistory = new SaveHistory();
+            $saveHistory->saveCron('error', 'Error en la aplicación Linkedin: ' . $errorMessage,$queueData->id_usuario);
             return $th;
         }
        

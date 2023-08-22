@@ -17,4 +17,12 @@ class SaveHistory
         $history->mensaje = $menss;
         $history->save();
     }
+    public function saveCron($tipo, $menss, $user_id)
+    {     
+        $history = new Historial();
+        $history->user_id = $user_id;
+        $history->tipo = $tipo;
+        $history->mensaje = $menss;
+        $history->save();
+    }
 }

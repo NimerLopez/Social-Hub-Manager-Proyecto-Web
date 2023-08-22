@@ -12,8 +12,7 @@ class TwitterController extends Controller
 
     public function ConnectOautTwitter()
     {
-        $state = bin2hex(random_bytes(16)); // Generate a random state for CSRF protection.
-        session(['twitter_state' => $state]);
+        $state = bin2hex(random_bytes(16)); 
     
         $query = http_build_query([
             'response_type' => 'code',
