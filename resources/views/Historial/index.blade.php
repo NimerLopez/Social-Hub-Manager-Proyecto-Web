@@ -5,7 +5,7 @@
             {{ __('Historial') }}
         </h2>
     </x-slot>
-    <table class="table-auto mx-auto w-11/12 mt-1 bg-gray-400">
+    <table class="table-auto mx-auto w-11/12 mt-1 bg-gray-300">
     <thead>
         <tr class="">
             <th class="px-4 py-2 border-2">ID</th>

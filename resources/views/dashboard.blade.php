@@ -5,7 +5,7 @@
         </h2>
     </x-slot>
     <div class="text-center mt-5">
-        <h3 class="font-semibold">Presiona cualquiera de los logos para conectarte</h3>
+        <h3 class="font-semibold">Presiona cualquiera de los logos para conectarte a una red social</h3>
     </div>
     <div class="py-12 flex space-x-20 justify-center">
         <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl hover:scale-110">
