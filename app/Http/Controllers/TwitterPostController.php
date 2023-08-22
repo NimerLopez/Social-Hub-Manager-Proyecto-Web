@@ -10,35 +10,33 @@ use GuzzleHttp\Client;
 
 class TwitterPostController extends Controller
 {
-    public function index(){
-        return view('publicaciones.twitter');
-    }
-    public function postToTwitter(Request $request)
+   
+    public function requestSendPostTW($post_description)
     {
-        // Obtener el token de acceso y el token secreto almacenados en la sesión durante la autenticación.
-        $accessToken = $request->session()->get('twitter_access_token');
-        //$accessTokenSecret = $request->session()->get('twitter_access_token_secret');
+        $tw_access_Model = new Twitter_access();
+        $tw_access = $tw_access_Model->getTwitterAccess(auth()->user()->id);
 
-        $tweet = $request->input('tweet');
+        $response = Http::withHeaders([
+            'Content_type' => 'application/json',
+            'Authorization' => "Bearer {$tw_access[0]->tw_access_token}"
+        ])->post('https://api.twitter.com/2/tweets', [
+            'text' => $post_description
+        ]);
 
-        // Verifica que la variable $tweet no esté vacía antes de realizar el POST
+        return $response;
+    }
 
-        $url = 'https://api.twitter.com/2/tweets';
-
-        $client = new Client();
-
-        try {
-            $response = $client->post($url, [
-                'headers' => [
-                    'Authorization' => 'Bearer ' .  $accessToken, // Reemplaza 'TU_ACCESS_TOKEN' con tu token de acceso OAuth
-                ],
-                'json' => [
-                    'text' => $tweet,
-                ],
-            ]);
-            // Aquí puedes agregar el código para manejar la respuesta de la API de Twitter, por ejemplo, guardar el ID del tweet creado, mostrar un mensaje de éxito, etc.
-        } catch (Exception $e) {
-            
+    public function twPost($post_description)
+    {
+        $send = true;
+        //obtener el id del usuario
+        $response = $this->requestSendPostTW($post_description);
+        //validar si el request fue valido
+        if ($response->status() != 201) {
+            $tw_controller = new TwitterController();
+            $tw_controller->refreshTwToken();
+            $send = false;
         }
+        return $send;
     }
 }
