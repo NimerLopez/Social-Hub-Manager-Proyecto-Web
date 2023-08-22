@@ -1,16 +1,15 @@
 <?php
 
 namespace App\Tools;
-
-use App\tools\SaveHistory;
 use App\Models\LinkedinSessions;
 use App\Models\Postqueue;
 use App\Models\RedditSessions;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Date;
+use Storage;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
-use Storage;
+
 
 
 class PostQueueSend
@@ -87,6 +86,7 @@ class PostQueueSend
 
         
     }
+
     private function SendToQueueToLinkedIn($queueData){
         $tokenIns= new LinkedinSessions;
         $KeysAcces=  $tokenIns->getLinkedAccess($queueData->id_usuario);
@@ -121,5 +121,6 @@ class PostQueueSend
        
     }
     
+
    
 }
