@@ -5,7 +5,7 @@
             {{ __('Historial') }}
         </h2>
     </x-slot>
-    <table class="table-auto w-full border-collapse">
+    <table class="table-auto w-full mt-10 bg-gray-400">
     <thead>
         <tr>
             <th class="px-4 py-2">ID</th>
@@ -16,12 +16,13 @@
     </thead>
     <tbody>
         @foreach($historial as $registro)
-        <tr class="{{ $registro->tipo === 'status' ? 'bg-green-500' : 'bg-red-500' }} text-white">
-            <td class="px-4 py-2">{{ $registro->id }}</td>
-            <td class="px-4 py-2">{{ $registro->tipo }}</td>
-            <td class="px-4 py-2">{{ $registro->mensaje }}</td>
-            <td class="px-4 py-2">{{ $registro->fecha }}</td>
+        <tr class="{{ $registro->tipo === 'status' ? 'bg-green-600' : 'bg-red-500' }} text-white">
+            <td class="px-4 py-2 items-center text-center">{{ $registro->id }}</td>
+            <td class="px-4 py-2 items-center text-center">{{ $registro->tipo }}</td>
+            <td class="px-4 py-2 items-center text-center">{{ $registro->mensaje }}</td>
+            <td class="px-4 py-2 items-center text-center">{{ $registro->fecha }}</td>
         </tr>
+
         @endforeach
     </tbody>
 </table>

@@ -5,7 +5,6 @@
         </h2>
     </x-slot>
     <div class="mt-8 grid grid-cols-2 gap-8">
-
             <div class="ml-20">
             <h3 class="text-2xl font-semibold text-gray-800 mb-4">Crear Horario:</h3>   
             <form action="{{ route('post-new-schedule') }}" method="POST" >
@@ -17,7 +16,7 @@
             </div>     
         <div class="mr-14">
             <h3 class="text-2xl font-semibold text-gray-800 mb-4">Horarios Registrados:</h3>
-            <table class="w-full border-collapse table-fixed">
+            <table class="w-full border-collapse">
                 <thead>
                     <tr>
                         <th class="px-4 py-2 bg-gray-100">Día</th>

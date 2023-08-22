@@ -8,7 +8,7 @@
         <h3 class="font-semibold">Presiona cualquiera de los logos para conectarte</h3>
     </div>
     <div class="py-12 flex space-x-20 justify-center">
-        <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl">
+        <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl hover:scale-110">
             <div class="p-6 bg-white border-b border-gray-200">
                 <form action="/connect/oaut/twitter" method="POST" class="">
                     @csrf
@@ -17,7 +17,7 @@
             </div>
         </div>
         <!-- reddit -->
-        <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl">
+        <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl hover:scale-110">
             <div class="p-6 bg-white border-b border-gray-200">
                 <form action="{{ route('reddit.auth') }}" method="get" class="">
                     @csrf
@@ -27,7 +27,7 @@
         </div>
         
         <!-- Linkedin -->
-        <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl">
+        <div class="bg-black overflow-hidden shadow-lg m:rounded-lg transition duration-300 transform hover:shadow-2xl hover:scale-110">
             <div class="p-6 bg-white border-b border-gray-200">
                 <form action="{{ route('linkedin.auth') }}" method="get" class="">
                     @csrf
