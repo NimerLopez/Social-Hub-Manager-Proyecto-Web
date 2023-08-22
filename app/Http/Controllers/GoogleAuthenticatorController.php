@@ -26,7 +26,6 @@ class GoogleAuthenticatorController extends Controller
         $userId = $request->input('user_id');
         $code = $request->input('2fa_token');
         $user = User::find($userId);
-        //dd($this->checkGoogleAuthenticatorCode($user->google2fa_secret, $code));
         if ($this->checkGoogleAuthenticatorCode($user->google2fa_secret, $code)) {      
             Auth::login($user);    
             return redirect()->intended(RouteServiceProvider::HOME)->with('success', 'Código 2FA verificado con éxito. Bienvenido.');

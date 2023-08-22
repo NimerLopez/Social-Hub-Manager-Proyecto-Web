@@ -59,7 +59,6 @@ class LinkedinController extends Controller
             LinkedinSessions::updateOrCreate(['id_usuario' => auth()->user()->id], $attributes);//guarda en la base de datos
             return redirect()->route('publicaciones.linkedin'); 
         } 
-        //returnar error        
     }
 
 }

@@ -22,14 +22,10 @@ class CrudScheduleController extends Controller
             'day' => 'required|string',
             'time' => 'required|date_format:H:i',
         ]);
-        //$currentTime = date('H:i');
-        //dd($currentTime);     
         $user_id = Auth::id();
         $day = $validated['day'];
         $time = $validated['time'];
-        //$t= new PostQueueSend;
-        //$x=$t->ValidatePostOldestSocialNetwork($user_id);
-        //dd($x);
+       
         if (Schedule::isDuplicate($user_id, $day, $time)) {
             // Si existe un horario duplicado muestra el error
             return back()->withErrors(['error' => 'Ya existe un horario con el mismo día y hora.']);
