@@ -29,9 +29,7 @@ class TwitterPostController extends Controller
     public function twPost($post_description)
     {
         $send = true;
-        //obtener el id del usuario
         $response = $this->requestSendPostTW($post_description);
-        //validar si el request fue valido
         if ($response->status() != 201) {
             $tw_controller = new TwitterController();
             $tw_controller->refreshTwToken();
