@@ -16,7 +16,7 @@
                     </div>
                     <!-- Mostrar mensajes de éxito -->
                     @if(session('success'))
-                        <div class="bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded relative mb-4" role="alert">
+                    <div class="mt-20 h-3/8 w-100 bg-green-100 border border-green-400 text-green-700 px-4 py-3 rounded absolute mb-4" role="alert">
                             <strong class="font-bold">Exito!</strong>
                             <span class="block sm:inline">{{ session('success') }}</span>
                         </div>

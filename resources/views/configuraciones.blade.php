@@ -14,15 +14,15 @@
                         <p class="block text-gray-700 font-bold mb-2">Configuraciones desactivar 2 fact</p>
                         <?php $google2faEnabled = false;?>
                     @else
-                        <p class="mb-4">Configuraciones activar 2fac</p>
+                        <p class="mb-4 font-bold">Configuraciones activar 2fac</p>
                         <?php $google2faEnabled = true;?>
                     @endif
                     <form action="/set/estado" method="POST" class="inline-block">
                         @csrf
                         <input type="hidden" name="google2fa_enabled" value="{{ $google2faEnabled ? '1' : '0' }}">
-                        <button type="submit" class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md">
-                            Cambiar Estado
-                        </button>
+                        <button type="submit" class="py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg shadow-md">
+                                Cambiar Estado
+                            </button>
                     </form>
                     @error('google2fa_enabled')
                         <p class="text-red-500 mt-2">{{ $message }}</p>
@@ -38,8 +38,7 @@
                     <div>
                         <form action="/set/keys" method="POST">
                             @csrf                           
-                            <label for="google2fa_secret" class="block text-gray-700 font-bold mb-2">Cambiar Claves</label>                                                      
-                            <button type="submit" class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white font-semibold rounded-lg shadow-md">
+                            <button type="submit" class="py-2 px-4 bg-gray-500 hover:bg-gray-600 text-white font-semibold rounded-lg shadow-md">
                                 Cambiar Claves
                             </button>
                         </form>
