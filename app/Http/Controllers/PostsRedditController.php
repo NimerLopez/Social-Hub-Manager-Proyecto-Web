@@ -42,8 +42,8 @@ class PostsRedditController extends Controller
                 'text' => $request->input('content'),
             ],
         ]);
-        //dd($response);   
-        // Publicación exitosa, redirige a la vista de publicaciones
+
+        // Publicación exitosa, redirige a la vista de publicaciones y guarda historial
         $saveHistory = new SaveHistory();
         $saveHistory->save('status','Publicacion Exitosa: code-> ' . $response->getStatusCode());
         return redirect()->route('publicaciones.index')->with('success', 'Publicación exitosa en Reddit.');      

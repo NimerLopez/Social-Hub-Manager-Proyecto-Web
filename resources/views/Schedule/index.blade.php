@@ -4,7 +4,7 @@
             {{ __('Horarios de Cola') }}
         </h2>
     </x-slot>
-    <div class="mx-auto mt-8 grid grid-cols-2 gap-8">
+    <div class="mt-8 grid grid-cols-2 gap-8">
 
             <div class="ml-20">
             <h3 class="text-2xl font-semibold text-gray-800 mb-4">Crear Horario:</h3>   
@@ -15,7 +15,7 @@
                 <button type="submit" class="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 mt-5">Crear publicación</button>
             </form>    
             </div>     
-        <div>
+        <div class="mr-14">
             <h3 class="text-2xl font-semibold text-gray-800 mb-4">Horarios Registrados:</h3>
             <table class="w-full border-collapse table-fixed">
                 <thead>

@@ -49,7 +49,7 @@
                         <x-form.postsQueueVal></x-form.postsQueueVal>
                         <div>
                             <button type="submit" class="px-4 py-2 bg-blue-500 text-white rounded">Submit</button>
-                            <button type="submit" formaction="{{ route('send-to-post-queue-linkedin') }}" class="px-4 py-2 bg-black text-white rounded">SendToPostQueue</button>
+                            <button type="submit" formaction="{{ route('send-to-post-queue-linkedin') }}" class="px-4 py-2 bg-black text-white rounded">Enviar a cola</button>
                         </div>
                     </form>
                 </div>

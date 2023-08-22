@@ -1,15 +1,16 @@
 <?php
 
 namespace App\Tools;
+
+use App\tools\SaveHistory;
 use App\Models\LinkedinSessions;
 use App\Models\Postqueue;
 use App\Models\RedditSessions;
 use Illuminate\Support\Facades\Auth; 
 use Illuminate\Support\Facades\Date;
-use Storage;
 use GuzzleHttp\Client;
 use Illuminate\Support\Facades\Http;
-
+use Storage;
 
 
 class PostQueueSend
@@ -66,10 +67,17 @@ class PostQueueSend
             $deliteQueue= Postqueue::find($queueData->id);//busca la c
             $deliteQueue->delete();
             //VALIDAR RESPONSE Y GUARDAR EN HISTORIAL
+            $saveHistory = new SaveHistory();
+            $saveHistory->save('status','Publicacion Exitosa: code-> ' . $response->getStatusCode());                   
             return $response;
         } catch (\Throwable $th) {
-           return $th;
+            $errorMessage = $e->getMessage();
+            $saveHistory = new SaveHistory();
+            $saveHistory->save('error', 'Error en la aplicación: ' . $errorMessage);
+            return $th;
         }
+
+        
     }
     private function SendToQueueToLinkedIn($queueData){
         $tokenIns= new LinkedinSessions;
